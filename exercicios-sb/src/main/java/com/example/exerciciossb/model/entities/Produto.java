@@ -1,25 +1,29 @@
 package com.example.exerciciossb.model.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
+
 public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String nome;
+	@NotBlank
+	private String nome; 
 	
-	@Column(nullable = false)
+	@Min(0)
 	private Double preco;
 	
-	private Double precoComDesconto;
-	
+	@Min(0)
+	@Max(1)
 	private Double desconto;
 
 	public Produto() {
@@ -34,21 +38,7 @@ public class Produto {
 		this.desconto = desconto;
 	}
 
-	public Double getPrecoComDesconto() {
-		return precoComDesconto;
-	}
-
-
-	public void setPrecoComDesconto(Double precoComDesconto) {
-		this.precoComDesconto = precoComDesconto;
-	}
-
-
-	public Double precoFinal(Double preco, Double desonto) {
-		setPrecoComDesconto(preco = preco - (preco*desconto));
-		return getPrecoComDesconto();
-	}
-	
+		
 	public Double getPreco() {
 		return preco;
 	}
